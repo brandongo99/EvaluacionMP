@@ -1,0 +1,5 @@
+npm install react-router-dom
+npm install react-bootstrap Bootstrap
+npm install --save react-top-loading-bar
+npm install axios
+npm install date-fns --save

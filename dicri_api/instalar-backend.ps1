@@ -1,6 +1,6 @@
 npm init -y
 
-npm install express cors dotenv jsonwebtoken mssql bcrypt swagger-ui-express swagger-jsdoc
+npm install express cors dotenv jsonwebtoken mssql bcrypt swagger-ui-express swagger-jsdoc redis
 
 npm install --save-dev nodemon
 

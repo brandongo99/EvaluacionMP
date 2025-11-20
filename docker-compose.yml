@@ -1,0 +1,54 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: dicri_sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=TuPasswordFuerte2025!
+    ports:
+      - "1444:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  backend:
+    build: ./dicri_api
+    container_name: dicri_backend
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=sqlserver
+      - DB_PORT=1433
+      - DB_USER=admin_dicri
+      - DB_PASSWORD=admin2025!
+      - DB_NAME=DICRI
+      - JWT_SECRET=DICRI2025BEGS
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - sqlserver
+      - redis
+    volumes:
+      - ./dicri_api:/usr/src/app
+    command: ["npm", "start"]
+
+  frontend:
+    build: ./frontend
+    container_name: dicri_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+  redis:
+    image: redis:latest
+    container_name: dicri_redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  sql_data:

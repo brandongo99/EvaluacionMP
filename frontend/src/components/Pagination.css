@@ -1,0 +1,9 @@
+.page-link {
+    color: rgb(33.5, 43, 54) !important;
+}
+
+.page-link.active, .active > .page-link {
+    background-color: rgb(33.5, 43, 54) !important;
+    border-color: rgb(33.5, 43, 54) !important;
+    color: #fff !important;
+}

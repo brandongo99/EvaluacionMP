@@ -1,0 +1,51 @@
+.rs-input-group.rs-input-group-inside {
+    height: 40px;
+    width: 100% !important;
+    font-size: 0.9375rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #637381 !important;
+    appearance: none !important;
+    background-color: #fff !important;
+    background-clip: padding-box;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 0.375rem !important;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+.rs-input-group-focus.rs-input-group-inside {
+    color: #637381 !important;
+    background-color: #dfe3e8 !important;
+    border-color: rgb(33.5, 43, 54) !important;
+    outline: 0 !important;
+    box-shadow: 0 0 0 0.25rem rgba(5, 105, 212, 0.25) !important;
+}
+
+.rs-input-group:hover.rs-input-group-inside {
+    border-color: rgb(33.5, 43, 54) !important;
+}
+
+.rs-picker-toggle-wrapper {
+    display: block;
+}
+
+.rs-picker-toggle {
+    height: 40px;
+}
+
+.rs-picker-toggle-active {
+    color: #637381 !important;
+    background-color: #dfe3e8 !important;
+    border-color: rgb(33.5, 43, 54) !important;
+    outline: 0 !important;
+    box-shadow: 0 0 0 0.25rem rgba(5, 105, 212, 0.25) !important;
+}
+
+.rs-picker-toggle:hover, .form-control:hover {
+    border-color: rgb(33.5, 43, 54) !important;
+}
+
+.rs-picker-default .rs-picker-toggle.rs-btn {
+    padding-bottom: 7px !important;
+    padding-top: 9px !important;
+}

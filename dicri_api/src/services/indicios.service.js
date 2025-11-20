@@ -2,6 +2,7 @@ const { getConnection } = require("../config/db");
 const sql = require("mssql");
 
 module.exports = {
+  // Método existente para crear un indicio
   crearIndicio: async (indicio) => {
     const {
       descripcion,
@@ -26,5 +27,16 @@ module.exports = {
       .execute("sp_InsertIndicio");
 
     return result.recordset[0];
+  },
+
+  // Nuevo método para listar indicios por expediente
+  listarPorExpediente: async (id_expediente) => {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("PId_expediente", sql.Int, id_expediente)
+      .execute("sp_GetIndiciosByExpediente");
+
+    return result.recordset;
   }
 };

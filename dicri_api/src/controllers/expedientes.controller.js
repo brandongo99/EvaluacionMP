@@ -20,87 +20,58 @@ module.exports = {
     }
   },
 
-  // Enviar expediente a revisión
-  enviarRevision: async (req, res) => {
+  // Cambia estado expediente
+  cambiaEstado: async (req, res) => {
     try {
       const { id } = req.params;
-      const id_usuario_envia = req.user.id_usuario; // el técnico del token
+      const { nuevo_estado, justificacion } = req.body;
+      const id_usuario = req.user.id_usuario;
+      const rol = req.user.id_rol;
 
-      const data = await expedienteService.enviarRevision(
-        parseInt(id),
-        id_usuario_envia
-      );
+      const estadosValidos = ["En revisión", "Aprobado", "Rechazado"];
+      if (!estadosValidos.includes(nuevo_estado)) {
+        return response.error(res, "Estado inválido", 400);
+      }
 
+      if (nuevo_estado === "En revisión" && rol !== 1) {
+        return response.error(res, "Solo técnicos pueden enviar a revisión", 403);
+      }
+      if ((nuevo_estado === "Aprobado" || nuevo_estado === "Rechazado") && rol !== 2) {
+        return response.error(res, "Solo coordinadores pueden aprobar o rechazar", 403);
+      }
+
+      if (nuevo_estado === "Rechazado" && !justificacion) {
+        return response.error(res, "Debe indicar justificación para rechazar", 400);
+      }
+
+      const data = await expedienteService.cambiaEstado(parseInt(id), nuevo_estado, id_usuario, justificacion || null);
       return response.success(res, data);
     } catch (err) {
-      console.error("ERROR ENVIAR REVISION:", err);
-      return response.error(res, "Error interno al enviar expediente", 500);
+      console.error("ERROR CAMBIAR ESTADO:", err);
+      return response.error(res, "Error interno al cambiar estado", 500);
     }
   },
 
-  // Aprobar expediente (Coordinador)
-  aprobar: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const id_coordinador = req.user.id_usuario;
-
-      const data = await expedienteService.aprobar(parseInt(id), id_coordinador);
-      return response.success(res, data);
-    } catch (err) {
-      console.error("ERROR APROBAR:", err);
-      return response.error(res, err, 500);
-    }
-  },
-
-  // Rechazar expediente (Coordinador)
-  rechazar: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { justificacion } = req.body;
-      const id_coordinador = req.user.id_usuario;
-
-      const data = await expedienteService.rechazar(parseInt(id), id_coordinador, justificacion);
-      return response.success(res, data);
-    } catch (err) {
-      console.error("ERROR RECHAZAR:", err);
-      return response.error(res, "Error interno al rechazar expediente", 500);
-    }
-  },
-
-  // Listar expedientes}
-  listarTodos: async (req, res) => {
+  // Listar expedientes (Coordinador ve todos, Técnico ve solo los suyos)
+  listarExpedientes: async (req, res) => {
     try {
       const { estado, inicio, fin } = req.query;
+      const id_usuario = req.user.id_usuario;
+      const id_rol = req.user.id_rol;
+
+      // Si es técnico, filtra por su ID; si es coordinador, ve todos
+      const id_tecnico = id_rol === 1 ? id_usuario : null;
 
       const data = await expedienteService.listar(
         estado || null,
         inicio || null,
         fin || null,
-        null  // coordinador ve todos
-      );
-
-      return response.success(res, data);
-    } catch (err) {
-      console.error("ERROR LISTAR EXPEDIENTES:", err);
-      return response.error(res, "Error interno", 500);
-    }
-  },
-
-  // Listar mis expedientes (Técnico)
-  listarMisExpedientes: async (req, res) => {
-    try {
-      const id_tecnico = req.user.id_usuario;
-
-      const data = await expedienteService.listar(
-        null,   // estado
-        null,   // inicio
-        null,   // fin
         id_tecnico
       );
 
       return response.success(res, data);
     } catch (err) {
-      console.error("ERROR LISTAR MIS EXPEDIENTES:", err);
+      console.error("ERROR LISTAR EXPEDIENTES:", err);
       return response.error(res, "Error interno", 500);
     }
   }

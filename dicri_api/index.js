@@ -5,6 +5,7 @@ require('dotenv').config();
 const authRoutes = require('./src/routes/auth.routes');
 const expedientesRoutes = require("./src/routes/expedientes.routes");
 const indiciosRoutes = require('./src/routes/indicios.routes');
+const reportesRoutes = require('./src/routes/reportes.routes');
 const swaggerDocs = require("./src/swagger/swagger");
 
 const app = express();
@@ -16,6 +17,7 @@ swaggerDocs(app);
 app.use("/api/auth", authRoutes);
 app.use("/api/expedientes", expedientesRoutes);
 app.use("/api/indicios", indiciosRoutes);
+app.use("/api/reportes", reportesRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`API corriendo en puerto ${PORT}`));
