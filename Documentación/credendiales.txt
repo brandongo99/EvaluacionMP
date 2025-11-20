@@ -1,0 +1,3 @@
+SQL SERVER
+User: admin_dicri
+Pass: admin2025!
