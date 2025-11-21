@@ -49,6 +49,7 @@ module.exports = {
         return response.error(res, "Refresh token inválido o expirado", 401);
       }
 
+      // Generar nuevo access token
       const newAccessToken = generarAccessToken({ id_usuario: decoded.id_usuario, id_rol: decoded.id_rol });
       return response.success(res, { access_token: newAccessToken });
     } catch (err) {

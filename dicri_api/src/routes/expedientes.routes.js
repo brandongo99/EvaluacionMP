@@ -217,6 +217,40 @@ router.put("/:id/estado", auth, role(["Tecnico", "Coordinador"]), controller.cam
  */
 router.get("/", auth, role(["Tecnico", "Coordinador"]), controller.listarExpedientes);
 
+// TECNICO/COORDINADOR → obtener siguiente número de expediente
+/**
+ * @swagger
+ * /api/expedientes/siguiente:
+ *   get:
+ *     summary: Obtener siguiente número de expediente
+ *     description: Devuelve el siguiente número disponible para crear un nuevo expediente. Disponible para técnicos y coordinadores.
+ *     tags: [Expedientes]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Número de expediente generado correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 numero_expediente:
+ *                   type: string
+ *                   example: "EXP-002-2025"
+ *       403:
+ *         description: No autorizado para consultar el número
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: "Acceso denegado (rol no permitido)"
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: "Error al obtener el siguiente número de expediente"
+ */
 router.get("/siguiente", auth, role(["Tecnico", "Coordinador"]), controller.siguienteNumero);
 
 module.exports = router;

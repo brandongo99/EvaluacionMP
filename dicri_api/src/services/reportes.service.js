@@ -2,6 +2,7 @@ const { getConnection } = require("../config/db");
 const sql = require("mssql");
 
 module.exports = {
+    // Método para obtener reportes con filtros dinámicos
     obtenerReporte: async (filtros) => {
         const {
             tipoReporte,

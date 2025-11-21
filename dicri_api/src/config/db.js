@@ -1,5 +1,6 @@
 const sql = require('mssql');
 
+// Configuración de la base de datos SQL Server
 const dbSettings = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -11,6 +12,7 @@ const dbSettings = {
   }
 };
 
+// Función para obtener una conexión a la base de datos
 async function getConnection() {
   try {
     const pool = await sql.connect(dbSettings);

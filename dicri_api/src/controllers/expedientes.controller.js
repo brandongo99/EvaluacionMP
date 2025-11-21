@@ -44,6 +44,7 @@ module.exports = {
         return response.error(res, "Debe indicar justificación para rechazar", 400);
       }
 
+      // Realiza el cambio de estado
       const data = await expedienteService.cambiaEstado(parseInt(id), nuevo_estado, id_usuario, justificacion || null);
       return response.success(res, { data });
     } catch (err) {

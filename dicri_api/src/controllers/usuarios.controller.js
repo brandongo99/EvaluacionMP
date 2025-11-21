@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const response = require("../utils/response");
 
 module.exports = {
+  // Listar usuarios, con filtro opcional por rol
   listarUsuarios: async (req, res) => {
     try {
       const { id_rol } = req.query; // opcional
@@ -14,6 +15,7 @@ module.exports = {
     }
   },
 
+  // Crear nuevo usuario
   crearUsuario: async (req, res) => {
     try {
       const { nombre, correo, contrasena, id_rol } = req.body;
@@ -38,6 +40,7 @@ module.exports = {
     }
   },
 
+  // Editar usuario existente
   editarUsuario: async (req, res) => {
     try {
       const { id } = req.params;
@@ -66,6 +69,7 @@ module.exports = {
     }
   },
 
+  // Activar usuario
   activarUsuario: async (req, res) => {
     try {
       const { id } = req.params;
@@ -77,6 +81,7 @@ module.exports = {
     }
   },
 
+  // Desactivar usuario
   desactivarUsuario: async (req, res) => {
     try {
       const { id } = req.params;

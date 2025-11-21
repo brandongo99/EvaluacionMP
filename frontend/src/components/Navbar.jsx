@@ -6,6 +6,7 @@ const Navbar = ({ onToggleSidebar }) => {
     const navigate = useNavigate();
     const usuario = JSON.parse(localStorage.getItem("usuario"));
 
+    // Función para manejar el cierre de sesión
     const handleLogout = () => {
         logout();
         localStorage.removeItem("usuario");     
@@ -13,6 +14,7 @@ const Navbar = ({ onToggleSidebar }) => {
         navigate("/");
     };
 
+    // Función para realizar la solicitud de logout al backend
     const logout = async () => {
         try {
             const response = await api.post("/auth/logout", {}, {

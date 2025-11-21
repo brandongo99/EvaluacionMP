@@ -8,6 +8,7 @@ const controller = require("../controllers/auth.controller");
  *   description: Endpoints para autenticación, renovación de token y cierre de sesión
  */
 
+// Endpoint de inicio de sesión
 /**
  * @swagger
  * /api/auth/login:
@@ -68,6 +69,8 @@ const controller = require("../controllers/auth.controller");
  *               error: "Error interno de autenticación"
  */
 router.post("/login", controller.login);
+
+// Endpoint de renovación de token
 /**
  * @swagger
  * /api/auth/refresh:
@@ -106,6 +109,8 @@ router.post("/login", controller.login);
  *               error: "Refresh token inválido o expirado"
  */
 router.post("/refresh", controller.refresh);
+
+// Endpoint de cierre de sesión
 /**
  * @swagger
  * /api/auth/logout:

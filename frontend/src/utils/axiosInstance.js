@@ -26,6 +26,7 @@ api.interceptors.request.use((config) => {
 let isRefreshing = false;
 let failedQueue = [];
 
+// Procesa la cola de requests fallidos
 const processQueue = (error, token = null) => {
   failedQueue.forEach((prom) => {
     if (error) prom.reject(error);
@@ -34,6 +35,7 @@ const processQueue = (error, token = null) => {
   failedQueue = [];
 };
 
+// Maneja respuestas con errores
 api.interceptors.response.use(
   (response) => response,
   async (error) => {

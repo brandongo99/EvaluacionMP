@@ -11,6 +11,7 @@ import RouteChangeHandler from "./RouteChangeHandler";
 import { setLoadingHandlers } from "./utils/axiosConfig";
 import { setNavigator } from "./utils/navigateService";
 
+// Componente para rutas protegidas
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("access_token");
   const usuario = localStorage.getItem("usuario");

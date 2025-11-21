@@ -1,6 +1,7 @@
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
+// Configuración de Swagger
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -27,7 +28,7 @@ const swaggerSpec = swaggerJSDoc(options);
 function swaggerDocs(app) {
   app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-  // archivo JSON (opcional)
+  // Ruta para obtener el JSON de la documentación
   app.get("/api/docs.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(swaggerSpec);

@@ -37,6 +37,7 @@ const Expedientes = () => {
   const [justificacion, setJustificacion] = useState("");
   const [expedienteARechazar, setExpedienteARechazar] = useState(null);
 
+  // Cargar expedientes con filtros
   const cargarExpedientes = async () => {
     try {
       const params = {};
@@ -60,6 +61,7 @@ const Expedientes = () => {
     cargarExpedientes();
   }, []);
 
+  // Crear nuevo expediente
   const handleCrearExpediente = async () => {
     if (!numeroExpediente.trim()) {
       return showAlert("warning", "Dato requerido", "Debe ingresar un número de expediente.");
@@ -89,6 +91,7 @@ const Expedientes = () => {
     }
   };
 
+  // Obtener siguiente número de expediente
   const obtenerSiguiente = async () => {
     try {
         const res = await api.get("/expedientes/siguiente");
@@ -99,6 +102,7 @@ const Expedientes = () => {
     }
   };
 
+  // Cambiar estado del expediente
   const cambiarEstado = async (id, nuevo_estado, justificacion = null) => {
     let data = { nuevo_estado };
 
@@ -124,6 +128,7 @@ const Expedientes = () => {
     obtenerSiguiente();
   };
 
+  // Cargar indicios de un expediente
   const cargarIndiciosExpediente = async (id_expediente) => {
     try {
         const res = await api.get(`/indicios/${id_expediente}`);

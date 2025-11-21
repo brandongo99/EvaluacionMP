@@ -15,6 +15,7 @@ const Login = () => {
     e.preventDefault();
     setError("");
 
+    // Realizar la solicitud de inicio de sesión
     try {
       const response = await api.post("/auth/login", {
         correo,
@@ -23,6 +24,7 @@ const Login = () => {
 
       const { success, message, data } = response.data;
 
+      // Si el inicio de sesión falla, limpiar tokens y mostrar error
       if (!success) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
@@ -34,6 +36,7 @@ const Login = () => {
 
       const { usuario, access_token, refresh_token } = data;
 
+      // Guardar tokens y datos del usuario en el almacenamiento local
       saveTokens({ access_token, refresh_token });
       localStorage.setItem("usuario", JSON.stringify(usuario));
 

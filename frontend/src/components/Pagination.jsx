@@ -16,6 +16,7 @@ const PaginatedComponent = ({ data, itemsPerPage, renderItems }) => {
         setCurrentPage(pageNumber);
     };
 
+    // Fución para renderizar los números de página con lógica de elipsis
     const renderPaginationItems = () => {
         const pageNumbers = [];
         const maxVisiblePages = 3;

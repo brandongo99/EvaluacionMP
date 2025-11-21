@@ -2,9 +2,9 @@ const reportesService = require("../services/reportes.service");
 const response = require("../utils/response");
 
 module.exports = {
+  // Controlador para obtener reportes basados en parámetros de consulta
   obtenerReporte: async (req, res) => {
     try {
-      // Recibe parámetros
       const {
         tipoReporte,
         fechaInicio,
