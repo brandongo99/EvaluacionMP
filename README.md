@@ -92,6 +92,7 @@ Renovación automática: Interceptor Axios en el frontend.
 En la carpeta Documentación encontrarás:
 
 Manual Técnico (PDF y DOCX)
+Manual de Usuario (PDF y DOCX)
 Diagramas de Arquitectura
 Diagrama ERD (SQL Server)
 
