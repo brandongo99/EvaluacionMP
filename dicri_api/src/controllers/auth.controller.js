@@ -13,6 +13,10 @@ module.exports = {
       const usuario = await service.login(correo);
       if (!usuario) return response.error(res, "Correo o contraseña incorrectos", 401);
 
+      if (!usuario.activo) {
+        return response.error(res, "Usuario desactivado. Contacte al administrador.", 403);
+      }
+
       const passwordValida = await bcrypt.compare(contrasena, usuario.contrasena);
       if (!passwordValida) return response.error(res, "Correo o contraseña incorrectos", 401);
 

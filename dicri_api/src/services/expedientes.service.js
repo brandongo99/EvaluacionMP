@@ -28,7 +28,7 @@ module.exports = {
     return result.recordset;
   },
 
-    // Cambia estado expediente
+  // Cambia estado expediente
   cambiaEstado: async (id_expediente, nuevo_estado, id_usuario, justificacion = null) => {
     const pool = await getConnection();
     const estadosValidos = ["En revisión", "Aprobado", "Rechazado"];
@@ -57,5 +57,12 @@ module.exports = {
       message: `Expediente ${nuevo_estado.toLowerCase()}`,
       resultado: result.recordset[0]
     };
+  },
+
+  // Obtener siguiente número de expediente
+  obtenerSiguienteNumero: async () => {
+    const pool = await getConnection();
+    const result = await pool.request().execute("sp_GetNextNumeroExpediente");
+    return result.recordset[0];
   }
 };

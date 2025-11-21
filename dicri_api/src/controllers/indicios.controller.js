@@ -30,7 +30,7 @@ module.exports = {
         id_tecnico
       });
 
-      return response.success(res, data);
+      return response.success(res, { data });
     } catch (err) {
       console.error("ERROR CREAR INDICIO:", err);
       return response.error(res, "Error interno al crear indicio", 500);
@@ -47,7 +47,7 @@ module.exports = {
       }
 
       const data = await indicioService.listarPorExpediente(parseInt(id_expediente));
-      return response.success(res, data);
+      return response.success(res, { data });
     } catch (err) {
       console.error("ERROR LISTAR INDICIOS:", err);
       return response.error(res, "Error interno al listar indicios", 500);

@@ -4,7 +4,7 @@ services:
     container_name: dicri_sqlserver
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=TuPasswordFuerte2025!
+      - SA_PASSWORD=admin2025!
     ports:
       - "1444:1433"
     volumes:

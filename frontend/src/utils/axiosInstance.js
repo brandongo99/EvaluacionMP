@@ -39,12 +39,7 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Si ya fue reintentado, no lo intentes otra vez
-    if (
-      error.response &&
-      error.response.status === 401 &&
-      !originalRequest._retry
-    ) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       if (isRefreshing) {
@@ -61,28 +56,28 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const res = await axios.post(
-          baseURL + "/auth/refresh-token",
-          {
-            accessToken: getAccessToken(),
-            refreshToken: getRefreshToken(),
-          }
-        );
+        // ---- REFRESH TOKEN CORRECTO ----
+        const res = await axios.post(`${baseURL}/auth/refresh`, {
+          refresh_token: getRefreshToken(),
+        });
 
-        const { access_token, refresh_token } = res.data;
+        const { access_token, refresh_token } = res.data.data;
 
         saveTokens({ access_token, refresh_token });
 
-        api.defaults.headers.common["Authorization"] = "Bearer " + access_token;
+        api.defaults.headers.common["Authorization"] =
+          "Bearer " + access_token;
+
         processQueue(null, access_token);
 
-        // Reintenta la petición original con el nuevo token
-        originalRequest.headers["Authorization"] = "Bearer " + access_token;
+        originalRequest.headers["Authorization"] =
+          "Bearer " + access_token;
+
         return api(originalRequest);
       } catch (err) {
         processQueue(err, null);
         clearTokens();
-        navigateTo("/"); // Redirige al login SOLO si falla el refresh
+        navigateTo("/");
         return Promise.reject(err);
       } finally {
         isRefreshing = false;

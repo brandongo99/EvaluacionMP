@@ -217,4 +217,6 @@ router.put("/:id/estado", auth, role(["Tecnico", "Coordinador"]), controller.cam
  */
 router.get("/", auth, role(["Tecnico", "Coordinador"]), controller.listarExpedientes);
 
+router.get("/siguiente", auth, role(["Tecnico", "Coordinador"]), controller.siguienteNumero);
+
 module.exports = router;

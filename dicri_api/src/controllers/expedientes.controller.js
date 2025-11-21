@@ -13,7 +13,7 @@ module.exports = {
       }
 
       const data = await expedienteService.crearExpediente(numero_expediente, id_tecnico);
-      return response.success(res, data);
+      return response.success(res, { data });
     } catch (err) {
       console.error("ERROR CREAR EXPEDIENTE:", err);
       return response.error(res, "Error interno al crear expediente", 500);
@@ -45,7 +45,7 @@ module.exports = {
       }
 
       const data = await expedienteService.cambiaEstado(parseInt(id), nuevo_estado, id_usuario, justificacion || null);
-      return response.success(res, data);
+      return response.success(res, { data });
     } catch (err) {
       console.error("ERROR CAMBIAR ESTADO:", err);
       return response.error(res, "Error interno al cambiar estado", 500);
@@ -69,10 +69,21 @@ module.exports = {
         id_tecnico
       );
 
-      return response.success(res, data);
+      return response.success(res, { data });
     } catch (err) {
       console.error("ERROR LISTAR EXPEDIENTES:", err);
       return response.error(res, "Error interno", 500);
+    }
+  },
+
+  // Obtener siguiente número de expediente
+  siguienteNumero: async (req, res) => {
+    try {
+      const data = await expedienteService.obtenerSiguienteNumero();
+      return response.success(res, data);
+    } catch (err) {
+      console.error("ERROR OBTENER SIGUIENTE:", err);
+      return response.error(res, "Error interno al obtener correlativo", 500);
     }
   }
 };

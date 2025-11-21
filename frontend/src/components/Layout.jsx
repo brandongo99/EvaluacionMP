@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
                         <div className="row">
                             <div className="col-sm-6 text-center text-sm-start mb-2 mb-sm-0">
                                 <p className="m-0">
-                                    <b>Productos BYB ©</b> Todos los derechos reservados. <b>Kiosco V.1.0</b>
+                                    <b>Brandon Godinez ©</b> Todos los derechos reservados. <b>DICRI V.1.0</b>
                                 </p>
                             </div>
                         </div>

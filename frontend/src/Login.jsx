@@ -18,27 +18,34 @@ const Login = () => {
     try {
       const response = await api.post("/auth/login", {
         correo,
-        password
+        contrasena: password
       });
 
-      const { success, message, access_token, refresh_token, usuario } = response.data;
+      const { success, message, data } = response.data;
 
       if (!success) {
-        setError("Error al iniciar sesión: " + message);
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         localStorage.removeItem("usuario");
+
+        setError("Error al iniciar sesión: " + message);
         return;
       }
 
-      // Guardar tokens y datos
+      const { usuario, access_token, refresh_token } = data;
+
       saveTokens({ access_token, refresh_token });
       localStorage.setItem("usuario", JSON.stringify(usuario));
 
       navigate("/dashboard");
+
     } catch (err) {
       console.error(err);
       setError("Error al iniciar sesión: " + err.message);
+
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("usuario");
     }
   };
 
@@ -65,7 +72,7 @@ const Login = () => {
               className="form-control"
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
-              placeholder="Ej: coor1@dicri.gob.gt"
+              placeholder="Ej: correo@dominio.com"
               required
             />
           </div>

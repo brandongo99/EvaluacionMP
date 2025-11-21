@@ -4,24 +4,24 @@ import { getAccessToken } from "../utils/authService";
 
 const Navbar = ({ onToggleSidebar }) => {
     const navigate = useNavigate();
-    const empleado = JSON.parse(localStorage.getItem("empleado"));
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
 
     const handleLogout = () => {
         logout();
-        localStorage.removeItem("empleado");     
+        localStorage.removeItem("usuario");     
         
         navigate("/");
     };
 
     const logout = async () => {
         try {
-            const response = await api.post(
-                `/auth/logout?username=${empleado.em_No}&accessToken=${getAccessToken()}`
-            );
+            const response = await api.post("/auth/logout", {}, {
+                access_token: getAccessToken()
+            });
 
             localStorage.removeItem("access_token");
             localStorage.removeItem("refresh_token");
-            localStorage.removeItem("empleado");
+            localStorage.removeItem("usuario");
         } catch (error) {
       console.error("Error en la solicitud de logout", error);
     }
@@ -41,7 +41,7 @@ const Navbar = ({ onToggleSidebar }) => {
                     >
                         <i className="fe fe-menu" ></i>
                     </span>
-                    <span className="fw-bold fs-4 text-success">Portal ByB</span>
+                    <span className="fw-bold fs-4 text-success">Portal DICRI</span>
                 </div>
 
                 {/* Menú derecho */}
