@@ -22,6 +22,8 @@ const Login = () => {
         contrasena: password
       });
 
+      console.log("Respuesta del servidor:", response.data);
+
       const { success, message, data } = response.data;
 
       // Si el inicio de sesión falla, limpiar tokens y mostrar error
@@ -44,7 +46,7 @@ const Login = () => {
 
     } catch (err) {
       console.error(err);
-      setError("Error al iniciar sesión: " + err.message);
+      setError("Error al iniciar sesión: " + err.response?.data?.message || err.message);
 
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");

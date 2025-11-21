@@ -117,6 +117,7 @@ const ExpedienteDetalle = () => {
       setUbicacion("");
 
       cargarIndicios();
+      cargarExpediente();
     } catch (err) {
       console.error(err);
       showAlert("error", "Error", "No se pudo agregar el indicio.");
